@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- 04.05.2011 -->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="DettaglioCampagnaInputBean">
+
+    <sequence>
+
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+
+     <element name="codiceTipoOrdine" nillable="true" type="soapenc:string"/>
+
+     <element name="descrizioneArticoli" nillable="true" type="soapenc:boolean"/>
+
+    </sequence>
+
+   </complexType>
+
+   <complexType name="ArticoloCampagnaOutputBean">
+
+    <sequence>
+
+     <element name="codiceOmaggioAlt" nillable="true" type="soapenc:string"/>
+
+     <element name="codiceProdotto" nillable="true" type="soapenc:string"/>
+
+     <element name="descrizioneOmaggioAlt" nillable="true" type="soapenc:string"/>
+
+     <element name="descrizioneProdotto" nillable="true" type="soapenc:string"/>
+
+     <element name="disponibilitaProdotto" type="xsd:int"/>
+
+     <element name="numeroSequenza" type="xsd:int"/>
+
+     <element name="presenzaObbligatoria" type="xsd:boolean"/>
+
+     <element name="prezzoPubblico" type="xsd:double"/>
+
+     <element name="prezzoUnitario" type="xsd:double"/>
+
+     <element name="quantitaAssegnata" type="xsd:int"/>
+
+     <element name="quantitaMassima" type="xsd:int"/>
+
+     <element name="quantitaMinima" type="xsd:int"/>
+
+     <element name="quantitaOmaggioAlt" type="xsd:int"/>
+
+     <element name="quantitaOmaggioProposta" type="xsd:int"/>
+
+     <element name="quantitaProposta" type="xsd:int"/>
+
+     <element name="rigaModificabile" type="xsd:boolean"/>
+
+     <element name="scontoLordo" type="xsd:double"/>
+
+     <element name="scontoNetto" type="xsd:double"/>
+
+    </sequence>
+
+   </complexType>
+
+   <complexType name="DettaglioCampagnaOutputBean">
+
+    <sequence>
+
+     <element name="arrayArticoli" nillable="true" type="impl:ArrayOf_tns1_ArticoloCampagnaOutputBean"/>
+
+     <element name="cadenza" type="xsd:int"/>
+
+     <element name="codiceTipoOrdine" nillable="true" type="soapenc:string"/>
+
+     <element name="controlloAND" type="xsd:boolean"/>
+
+     <element name="dataFineValidita" nillable="true" type="xsd:dateTime"/>
+
+     <element name="dataInizioValidita" nillable="true" type="xsd:dateTime"/>
+
+     <element name="dataPrevistaFatturazione" nillable="true" type="xsd:dateTime"/>
+
+     <element name="delayProsRichiesta" type="xsd:int"/>
+
+     <element name="descrizione" nillable="true" type="soapenc:string"/>
+
+     <element name="esitoServizio" type="xsd:int"/>
+
+     <element name="giorniDilazionePagamento" type="xsd:int"/>
+
+     <element name="link" nillable="true" type="soapenc:string"/>
+
+     <element name="modalitaPagamento" nillable="true" type="soapenc:string"/>
+
+     <element name="numeroGiorni" type="xsd:int"/>
+
+     <element name="offertaAperta" type="xsd:boolean"/>
+
+     <element name="orarioFinale" nillable="true" type="xsd:dateTime"/>
+
+     <element name="orarioIniziale" nillable="true" type="xsd:dateTime"/>
+
+     <element name="partenzaConteggioDilazione" type="xsd:int"/>
+
+     <element name="pezziMinimi" type="xsd:int"/>
+
+     <element name="prenotazione" type="xsd:boolean"/>
+
+     <element name="righeMinime" type="xsd:int"/>
+
+     <element name="righeResidue" type="xsd:int"/>
+
+     <element name="valoreAlPrezzoNetto" type="xsd:boolean"/>
+
+     <element name="valoreMinimo" type="xsd:double"/>
+
+    </sequence>
+
+   </complexType>
+
+  </schema>
+
+  <schema targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" xmlns="http://www.w3.org/2001/XMLSchema">
+
+   <import namespace="http://database.infarma.it"/>
+
+   <import namespace="urn:BeanService"/>
+
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+   <complexType name="ArrayOf_tns1_ArticoloCampagnaOutputBean">
+
+    <complexContent>
+
+     <restriction base="soapenc:Array">
+
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ArticoloCampagnaOutputBean[]"/>
+
+     </restriction>
+
+    </complexContent>
+
+   </complexType>
+
+  </schema>
+
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna"/>
+
+   <import namespace="urn:BeanService"/>
+
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+   <complexType name="TooManyConnectionException">
+
+    <sequence/>
+
+   </complexType>
+
+  </schema>
+
+ </wsdl:types>
+
+ 
+   <wsdl:message name="TooManyConnectionException">
+
+ 
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+ 
+   </wsdl:message>
+
+ 
+   <wsdl:message name="FCKDettaglioCampagnaResponse">
+
+ 
+      <wsdl:part name="FCKDettaglioCampagnaReturn" type="tns1:DettaglioCampagnaOutputBean"/>
+
+ 
+   </wsdl:message>
+
+ 
+   <wsdl:message name="FCKDettaglioCampagnaRequest">
+
+ 
+      <wsdl:part name="inBean" type="tns1:DettaglioCampagnaInputBean"/>
+
+ 
+   </wsdl:message>
+
+ 
+   <wsdl:portType name="farmaclick2010001">
+
+ 
+      <wsdl:operation name="FCKDettaglioCampagna" parameterOrder="inBean">
+
+ 
+         <wsdl:input message="impl:FCKDettaglioCampagnaRequest" name="FCKDettaglioCampagnaRequest"/>
+
+ 
+         <wsdl:output message="impl:FCKDettaglioCampagnaResponse" name="FCKDettaglioCampagnaResponse"/>
+
+ 
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+ 
+      </wsdl:operation>
+
+ 
+   </wsdl:portType>
+
+ 
+   <wsdl:binding name="Farmaclick2010001FCKDettaglioCampagnaSoapBinding" type="impl:farmaclick2010001">
+
+ 
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+ 
+      <wsdl:operation name="FCKDettaglioCampagna">
+
+ 
+         <wsdlsoap:operation soapAction=""/>
+
+ 
+         <wsdl:input name="FCKDettaglioCampagnaRequest">
+
+ 
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+ 
+         </wsdl:input>
+
+ 
+         <wsdl:output name="FCKDettaglioCampagnaResponse">
+
+ 
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" use="encoded"/>
+
+ 
+         </wsdl:output>
+
+ 
+         <wsdl:fault name="TooManyConnectionException">
+
+ 
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna" use="encoded"/>
+
+ 
+         </wsdl:fault>
+
+ 
+      </wsdl:operation>
+
+ 
+   </wsdl:binding>
+
+ 
+   <wsdl:service name="farmaclick2010001Service">
+
+ 
+      <wsdl:port binding="impl:Farmaclick2010001FCKDettaglioCampagnaSoapBinding" name="Farmaclick2010001FCKDettaglioCampagna">
+
+ 
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKDettaglioCampagna"/>
+
+ 
+      </wsdl:port>
+
+ 
+   </wsdl:service>
+
+ 
+</wsdl:definitions>

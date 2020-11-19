@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- 15.10.2010 -->
+ <wsdl:types>
+  <schema targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_soapenc_string">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="soapenc:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ConsegnaOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ConsegnaOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ConsegnaDifferitaOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ConsegnaDifferitaOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_FatturazioneOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:FatturazioneOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ArticoloOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ArticoloOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ConfermaDifferitaInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="arrayCodiciConferma" nillable="true" type="impl:ArrayOf_soapenc_string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="descrizioneArticoli" type="xsd:boolean"/>
+     <element name="descrizioneMotivazioneMancanza" type="xsd:boolean"/>
+     <element name="noteCorriere" nillable="true" type="soapenc:string"/>
+     <element name="noteOrdine" nillable="true" type="soapenc:string"/>
+     <element name="riferimentoOrdineFarmacia" nillable="true" type="soapenc:string"/>
+     <element name="trattamentoRisposta" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ConsegnaOutputBean">
+    <sequence>
+     <element name="codiceCorriere" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="dataConsegna" nillable="true" type="xsd:dateTime"/>
+     <element name="numeroOrdineFornitore" nillable="true" type="soapenc:string"/>
+     <element name="quantitaConsegnata" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ConsegnaDifferitaOutputBean">
+    <sequence>
+     <element name="codiceConsegna" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="dataConsegna" nillable="true" type="xsd:dateTime"/>
+     <element name="dataFineValidita" nillable="true" type="xsd:dateTime"/>
+     <element name="disponibilitaProdotto" type="xsd:int"/>
+     <element name="note" nillable="true" type="soapenc:string"/>
+     <element name="quantita" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="FatturazioneOutputBean">
+    <sequence>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="quantitaFatturata" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArticoloOutputBean">
+    <sequence>
+     <element name="arrayConsegna" nillable="true" type="impl:ArrayOf_tns1_ConsegnaOutputBean"/>
+     <element name="arrayConsegnaDifferita" nillable="true" type="impl:ArrayOf_tns1_ConsegnaDifferitaOutputBean"/>
+     <element name="arrayFatturazione" nillable="true" type="impl:ArrayOf_tns1_FatturazioneOutputBean"/>
+     <element name="codiceMancanza" nillable="true" type="soapenc:string"/>
+     <element name="codiceOmaggioAlternativo" nillable="true" type="soapenc:string"/>
+     <element name="codiceProdotto" nillable="true" type="soapenc:string"/>
+     <element name="codiceProdottoSostituito" nillable="true" type="soapenc:string"/>
+     <element name="dataPrevistaConsegnaPrenotazione" nillable="true" type="xsd:dateTime"/>
+     <element name="dataPrevistaDisponibilita" nillable="true" type="xsd:dateTime"/>
+     <element name="descrizioneMancanza" nillable="true" type="soapenc:string"/>
+     <element name="descrizioneOmaggioAlternativo" nillable="true" type="soapenc:string"/>
+     <element name="descrizioneProdotto" nillable="true" type="soapenc:string"/>
+     <element name="descrizioneProdottoSostituito" nillable="true" type="soapenc:string"/>
+     <element name="importoNettoRiga" type="xsd:double"/>
+     <element name="note" nillable="true" type="soapenc:string"/>
+     <element name="prenotabile" type="xsd:boolean"/>
+     <element name="prezzoConsigliato" type="xsd:double"/>
+     <element name="prezzoNettoUnitario" type="xsd:double"/>
+     <element name="quantitaConsegnata" type="xsd:int"/>
+     <element name="quantitaMancante" type="xsd:int"/>
+     <element name="quantitaOmaggio" type="xsd:int"/>
+     <element name="quantitaOmaggioAlternativo" type="xsd:int"/>
+     <element name="quantitaPrenotata" type="xsd:int"/>
+     <element name="quantitaRichiesta" type="xsd:int"/>
+     <element name="rifRiga" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="OrdineOutputBean">
+    <sequence>
+     <element name="arrayArticoli" nillable="true" type="impl:ArrayOf_tns1_ArticoloOutputBean"/>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+     <element name="noteOrdine" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKConfermaDispDifferitaResponse">
+
+      <wsdl:part name="FCKConfermaDispDifferitaReturn" type="tns1:OrdineOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKConfermaDispDifferitaRequest">
+
+      <wsdl:part name="inBean" type="tns1:ConfermaDifferitaInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKConfermaDispDifferita" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKConfermaDispDifferitaRequest" name="FCKConfermaDispDifferitaRequest"/>
+
+         <wsdl:output message="impl:FCKConfermaDispDifferitaResponse" name="FCKConfermaDispDifferitaResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKConfermaDispDifferitaSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKConfermaDispDifferita">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKConfermaDispDifferitaRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKConfermaDispDifferitaResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKConfermaDispDifferitaSoapBinding" name="Farmaclick2010001FCKConfermaDispDifferita">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaDispDifferita"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

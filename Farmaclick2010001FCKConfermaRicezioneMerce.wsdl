@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- 2014.02.07 Rev 02 -->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="DettaglioArticoliBean">
+    <sequence>
+     <element name="codiceProdotto" nillable="true" type="soapenc:string"/>
+     <element name="note" nillable="true" type="soapenc:string"/>
+     <element name="numeroContenitore" nillable="true" type="soapenc:string"/>
+     <element name="quantitaConsegnata" type="xsd:int"/>
+     <element name="quantitaRichiesta" type="xsd:int"/>
+     <element name="segnalazione" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ConfermaRicezioneMerceInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="arrayArticoli" nillable="true" type="impl:ArrayOf_tns1_DettaglioArticoliBean"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitoreEmissione" nillable="true" type="soapenc:string"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="dataOraRicezione" nillable="true" type="xsd:dateTime"/>
+     <element name="esitoRiscontro" type="xsd:int"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+     <element name="tipoDocumento" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ConfermaRicezioneMerceOutputBean">
+    <sequence>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_DettaglioArticoliBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DettaglioArticoliBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKConfermaRicezioneMerceRequest">
+
+      <wsdl:part name="inBean" type="tns1:ConfermaRicezioneMerceInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKConfermaRicezioneMerceResponse">
+
+      <wsdl:part name="FCKConfermaRicezioneMerceReturn" type="tns1:ConfermaRicezioneMerceOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKConfermaRicezioneMerce" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKConfermaRicezioneMerceRequest" name="FCKConfermaRicezioneMerceRequest"/>
+
+         <wsdl:output message="impl:FCKConfermaRicezioneMerceResponse" name="FCKConfermaRicezioneMerceResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKConfermaRicezioneMerceSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKConfermaRicezioneMerce">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKConfermaRicezioneMerceRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKConfermaRicezioneMerceResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKConfermaRicezioneMerceSoapBinding" name="Farmaclick2010001FCKConfermaRicezioneMerce">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKConfermaRicezioneMerce"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

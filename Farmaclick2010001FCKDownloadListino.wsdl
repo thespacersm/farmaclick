@@ -1,0 +1,107 @@
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+<!-- 01.10.2010 12.20 -->  
+ <wsdl:types> 
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema"> 
+   <import namespace="http://database.infarma.it"/> 
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/> 
+   <complexType name="DownloadListinoInputBean"> 
+    <sequence> 
+     <element name="IDSessione" nillable="true" type="soapenc:string"/> 
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/> 
+     <element name="formatoOutput" nillable="true" type="soapenc:string"/> 
+     <element name="tipoRichiesta" nillable="true" type="soapenc:string"/> 
+    </sequence> 
+   </complexType> 
+   <complexType name="DownloadListinoOutputBean"> 
+    <sequence> 
+     <element name="dataOraGenerazioneListino" nillable="true" type="xsd:dateTime"/> 
+     <element name="delayProsRichiesta" type="xsd:int"/> 
+     <element name="esitoServizio" type="xsd:int"/> 
+     <element name="tipoRisposta" nillable="true" type="soapenc:string"/> 
+     <element name="urlConfermaDownload" nillable="true" type="soapenc:string"/> 
+     <element name="urlDownload" nillable="true" type="soapenc:string"/> 
+    </sequence> 
+   </complexType> 
+  </schema> 
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema"> 
+   <import namespace="urn:BeanService"/> 
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/> 
+   <complexType name="TooManyConnectionException"> 
+    <sequence/> 
+   </complexType> 
+  </schema> 
+ </wsdl:types> 
+ 
+   <wsdl:message name="FCKDownloadListinoRequest"> 
+ 
+      <wsdl:part name="inBean" type="tns1:DownloadListinoInputBean"/> 
+ 
+   </wsdl:message> 
+ 
+   <wsdl:message name="TooManyConnectionException"> 
+ 
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/> 
+ 
+   </wsdl:message> 
+ 
+   <wsdl:message name="FCKDownloadListinoResponse"> 
+ 
+      <wsdl:part name="FCKDownloadListinoReturn" type="tns1:DownloadListinoOutputBean"/> 
+ 
+   </wsdl:message> 
+ 
+   <wsdl:portType name="farmaclick2010001"> 
+ 
+      <wsdl:operation name="FCKDownloadListino" parameterOrder="inBean"> 
+ 
+         <wsdl:input message="impl:FCKDownloadListinoRequest" name="FCKDownloadListinoRequest"/> 
+ 
+         <wsdl:output message="impl:FCKDownloadListinoResponse" name="FCKDownloadListinoResponse"/> 
+ 
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/> 
+ 
+      </wsdl:operation> 
+ 
+   </wsdl:portType> 
+ 
+   <wsdl:binding name="Farmaclick2010001FCKDownloadListinoSoapBinding" type="impl:farmaclick2010001"> 
+ 
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/> 
+ 
+      <wsdl:operation name="FCKDownloadListino"> 
+ 
+         <wsdlsoap:operation soapAction=""/> 
+ 
+         <wsdl:input name="FCKDownloadListinoRequest"> 
+ 
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/> 
+ 
+         </wsdl:input> 
+ 
+         <wsdl:output name="FCKDownloadListinoResponse"> 
+ 
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino" use="encoded"/> 
+ 
+         </wsdl:output> 
+ 
+         <wsdl:fault name="TooManyConnectionException"> 
+ 
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino" use="encoded"/> 
+ 
+         </wsdl:fault> 
+ 
+      </wsdl:operation> 
+ 
+   </wsdl:binding> 
+ 
+   <wsdl:service name="farmaclick2010001Service"> 
+ 
+      <wsdl:port binding="impl:Farmaclick2010001FCKDownloadListinoSoapBinding" name="Farmaclick2010001FCKDownloadListino"> 
+ 
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKDownloadListino"/> 
+ 
+      </wsdl:port> 
+ 
+   </wsdl:service> 
+ 
+</wsdl:definitions> 

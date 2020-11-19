@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--15.10.2010-->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="CampComInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="codiceCampCom" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="CampComOutputBean">
+    <sequence>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="descrizione" nillable="true" type="soapenc:string"/>
+     <element name="esitoServizio" type="xsd:int"/>
+     <element name="link" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKDesCampCommercialeRequest">
+
+      <wsdl:part name="inBean" type="tns1:CampComInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKDesCampCommercialeResponse">
+
+      <wsdl:part name="FCKDesCampCommercialeReturn" type="tns1:CampComOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKDesCampCommerciale" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKDesCampCommercialeRequest" name="FCKDesCampCommercialeRequest"/>
+
+         <wsdl:output message="impl:FCKDesCampCommercialeResponse" name="FCKDesCampCommercialeResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKDesCampCommercialeSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKDesCampCommerciale">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKDesCampCommercialeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKDesCampCommercialeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKDesCampCommercialeSoapBinding" name="Farmaclick2010001FCKDesCampCommerciale">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKDesCampCommerciale"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

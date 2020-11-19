@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--15.10.2010 -->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="RichiestaSpedizioneDocumentoInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitoreEmissione" nillable="true" type="soapenc:string"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="riferimentoSpedizione" nillable="true" type="soapenc:string"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+     <element name="tipoSpedizione" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RichiestaSpedizioneDocumentoOutputBean">
+    <sequence>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="FCKRichiestaSpedizioneDocumentoResponse">
+
+      <wsdl:part name="FCKRichiestaSpedizioneDocumentoReturn" type="tns1:RichiestaSpedizioneDocumentoOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKRichiestaSpedizioneDocumentoRequest">
+
+      <wsdl:part name="inBean" type="tns1:RichiestaSpedizioneDocumentoInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKRichiestaSpedizioneDocumento" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKRichiestaSpedizioneDocumentoRequest" name="FCKRichiestaSpedizioneDocumentoRequest"/>
+
+         <wsdl:output message="impl:FCKRichiestaSpedizioneDocumentoResponse" name="FCKRichiestaSpedizioneDocumentoResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKRichiestaSpedizioneDocumentoSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKRichiestaSpedizioneDocumento">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKRichiestaSpedizioneDocumentoRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKRichiestaSpedizioneDocumentoResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKRichiestaSpedizioneDocumentoSoapBinding" name="Farmaclick2010001FCKRichiestaSpedizioneDocumento">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaSpedizioneDocumento"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

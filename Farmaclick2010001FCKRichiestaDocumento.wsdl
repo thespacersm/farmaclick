@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="RichiestaDocumentoInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+     <element name="dataContenitori" type="xsd:boolean"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="descrizioneArticoli" type="xsd:boolean"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="numeroOrdineFornitore" nillable="true" type="soapenc:string"/>
+     <element name="riferimentoOrdineFarmacia" nillable="true" type="soapenc:string"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+     <element name="tipoDocumento" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ContenitoreOutputBean">
+    <sequence>
+     <element name="descrizione" nillable="true" type="soapenc:string"/>
+     <element name="numeroContenitore" nillable="true" type="soapenc:string"/>
+     <element name="rendere" nillable="true" type="soapenc:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ScadenzeOutputBean">
+    <sequence>
+     <element name="bancaAppoggio" nillable="true" type="soapenc:string"/>
+     <element name="data" nillable="true" type="xsd:dateTime"/>
+     <element name="importo" type="xsd:double"/>
+     <element name="modalitaPagamento" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="DettaglioContenitoriOutputBean">
+    <sequence>
+     <element name="numeroContenitore" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="DettaglioOrdiniOutputBean">
+    <sequence>
+     <element name="arrayContenitori" nillable="true" type="impl:ArrayOf_tns1_DettaglioContenitoriOutputBean"/>
+     <element name="codiceProdotto" nillable="true" type="soapenc:string"/>
+     <element name="consegnaRitardata" type="xsd:boolean"/>
+     <element name="descrizioneProdotto" nillable="true" type="soapenc:string"/>
+     <element name="importoNettoRiga" type="xsd:double"/>
+     <element name="mancanteDaAllestimento" type="xsd:boolean"/>
+     <element name="quantitaConsegnata" type="xsd:int"/>
+     <element name="quantitaMancante" type="xsd:int"/>
+     <element name="quantitaOmaggio" type="xsd:int"/>
+     <element name="quantitaRichiesta" type="xsd:int"/>
+     <element name="scontoNetto" type="xsd:double"/>
+    </sequence>
+   </complexType>
+   <complexType name="TestataOrdiniOutputBean">
+    <sequence>
+     <element name="arrayDettaglioOrdini" nillable="true" type="impl:ArrayOf_tns1_DettaglioOrdiniOutputBean"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="importiVari" type="xsd:double"/>
+     <element name="importoDocumento" type="xsd:double"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="numeroOrdineFornitore" nillable="true" type="soapenc:string"/>
+     <element name="riferimentoOrdineFarmacia" nillable="true" type="soapenc:string"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RiferimentiDocumentiOutputBean">
+    <sequence>
+     <element name="arrayElencoContenitori" nillable="true" type="impl:ArrayOf_tns1_ContenitoreOutputBean"/>
+     <element name="arrayScadenze" nillable="true" type="impl:ArrayOf_tns1_ScadenzeOutputBean"/>
+     <element name="arrayTestataOrdini" nillable="true" type="impl:ArrayOf_tns1_TestataOrdiniOutputBean"/>
+     <element name="codiceFornitoreEmissione" nillable="true" type="soapenc:string"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="dataEffettivaConsegna" nillable="true" type="xsd:dateTime"/>
+     <element name="dataOraInvioEmail" nillable="true" type="xsd:dateTime"/>
+     <element name="descrizioneModalitaPagamento" nillable="true" type="soapenc:string"/>
+     <element name="importiVari" type="xsd:double"/>
+     <element name="importoDocumento" type="xsd:double"/>
+     <element name="inviatoEmail" type="xsd:boolean"/>
+     <element name="link" nillable="true" type="soapenc:string"/>
+     <element name="nettoAPagare" type="xsd:double"/>
+     <element name="nettoMerce" type="xsd:double"/>
+     <element name="nomeFileEmail" nillable="true" type="soapenc:string"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="scontoCassa" type="xsd:double"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+     <element name="tipoDocumento" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="RichiestaDocumentoOutputBean">
+    <sequence>
+     <element name="arrayRiferimenti" nillable="true" type="impl:ArrayOf_tns1_RiferimentiDocumentiOutputBean"/>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_ContenitoreOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ContenitoreOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ScadenzeOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ScadenzeOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_DettaglioContenitoriOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DettaglioContenitoriOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_DettaglioOrdiniOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DettaglioOrdiniOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_TestataOrdiniOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:TestataOrdiniOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_RiferimentiDocumentiOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RiferimentiDocumentiOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="FCKRichiestaDocumentoRequest">
+
+      <wsdl:part name="inBean" type="tns1:RichiestaDocumentoInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKRichiestaDocumentoResponse">
+
+      <wsdl:part name="FCKRichiestaDocumentoReturn" type="tns1:RichiestaDocumentoOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKRichiestaDocumento" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKRichiestaDocumentoRequest" name="FCKRichiestaDocumentoRequest"/>
+
+         <wsdl:output message="impl:FCKRichiestaDocumentoResponse" name="FCKRichiestaDocumentoResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKRichiestaDocumentoSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKRichiestaDocumento">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKRichiestaDocumentoRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it/" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKRichiestaDocumentoResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	       (C) Infarma Srl - Informatica Farmaceutica
+	           Via Canova 30 - Bologna
+	           Tel. 199.128.900
+	           email: farmaclick@infarma.it
+	           web: http://www.infarma.it
+	      </wsdl:documentation>
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKRichiestaDocumentoSoapBinding" name="Farmaclick2010001FCKRichiestaDocumento">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKRichiestaDocumento"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

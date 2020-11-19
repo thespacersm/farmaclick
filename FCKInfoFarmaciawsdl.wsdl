@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" xmlns:intf="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- Mod. 2012.09.03-->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="DettaglioCampiInputBean">
+    <sequence>
+     <element name="idStazione" nillable="true" type="soapenc:string"/>
+     <element name="nomeCampo" nillable="true" type="soapenc:string"/>
+     <element name="sezione" nillable="true" type="soapenc:string"/>
+     <element name="valoreCampo" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="InfoFarmaciaInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="arrayCampi" nillable="true" type="impl:ArrayOf_tns1_DettaglioCampiInputBean"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="InfoFarmaciaOutputBean">
+    <sequence>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_DettaglioCampiInputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DettaglioCampiInputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="FCKInfoFarmaciaResponse">
+
+      <wsdl:part name="FCKInfoFarmaciaReturn" type="tns1:InfoFarmaciaOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKInfoFarmaciaRequest">
+
+      <wsdl:part name="inBean" type="tns1:InfoFarmaciaInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKInfoFarmacia" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKInfoFarmaciaRequest" name="FCKInfoFarmaciaRequest"/>
+
+         <wsdl:output message="impl:FCKInfoFarmaciaResponse" name="FCKInfoFarmaciaResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKInfoFarmaciaSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKInfoFarmacia">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKInfoFarmaciaRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKInfoFarmaciaResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKInfoFarmaciaSoapBinding" name="Farmaclick2010001FCKInfoFarmacia">
+
+         <wsdlsoap:address location="http://10.70.0.90:8080/infarmaclick/farmaclick/Farmaclick2010001FCKInfoFarmacia"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

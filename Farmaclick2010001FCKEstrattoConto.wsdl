@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" xmlns:intf="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:BeanService" xmlns:tns2="http://database.infarma.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- 15.10.2010 -->
+ <wsdl:types>
+  <schema targetNamespace="urn:BeanService" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="EstrattoContoInputBean">
+    <sequence>
+     <element name="IDSessione" nillable="true" type="soapenc:string"/>
+     <element name="codiceFornitore" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RiferimentiEstrattoContoOutputBean">
+    <sequence>
+     <element name="annoDocumento" type="xsd:int"/>
+     <element name="banca" nillable="true" type="soapenc:string"/>
+     <element name="dataDocumento" nillable="true" type="xsd:dateTime"/>
+     <element name="dataOraInvioEmail" nillable="true" type="xsd:dateTime"/>
+     <element name="dataScadenza" nillable="true" type="xsd:dateTime"/>
+     <element name="importoResiduo" type="xsd:double"/>
+     <element name="importoScadenza" type="xsd:double"/>
+     <element name="inviatoEmail" type="xsd:boolean"/>
+     <element name="link" nillable="true" type="soapenc:string"/>
+     <element name="modalitaPagamento" nillable="true" type="soapenc:string"/>
+     <element name="nomeFileEmail" nillable="true" type="soapenc:string"/>
+     <element name="numeroDocumento" nillable="true" type="soapenc:string"/>
+     <element name="sedeEmittente" nillable="true" type="soapenc:string"/>
+     <element name="segnoDocumento" nillable="true" type="soapenc:string"/>
+     <element name="siglaDocumento" nillable="true" type="soapenc:string"/>
+     <element name="tipoRecord" nillable="true" type="soapenc:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="EstrattoContoOutputBean">
+    <sequence>
+     <element name="arrayEstrattoConto" nillable="true" type="impl:ArrayOf_tns1_RiferimentiEstrattoContoOutputBean"/>
+     <element name="delayProsRichiesta" type="xsd:int"/>
+     <element name="esitoServizio" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://database.infarma.it"/>
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_RiferimentiEstrattoContoOutputBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RiferimentiEstrattoContoOutputBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://database.infarma.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="urn:BeanService"/>
+   <import namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="TooManyConnectionException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="FCKEstrattoContoResponse">
+
+      <wsdl:part name="FCKEstrattoContoReturn" type="tns1:EstrattoContoOutputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TooManyConnectionException">
+
+      <wsdl:part name="fault" type="tns2:TooManyConnectionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="FCKEstrattoContoRequest">
+
+      <wsdl:part name="inBean" type="tns1:EstrattoContoInputBean"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="farmaclick2010001">
+
+      <wsdl:operation name="FCKEstrattoConto" parameterOrder="inBean">
+
+         <wsdl:input message="impl:FCKEstrattoContoRequest" name="FCKEstrattoContoRequest"/>
+
+         <wsdl:output message="impl:FCKEstrattoContoResponse" name="FCKEstrattoContoResponse"/>
+
+         <wsdl:fault message="impl:TooManyConnectionException" name="TooManyConnectionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="Farmaclick2010001FCKEstrattoContoSoapBinding" type="impl:farmaclick2010001">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="FCKEstrattoConto">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="FCKEstrattoContoRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://api.farmaclick.infarma.it" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="FCKEstrattoContoResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="TooManyConnectionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="TooManyConnectionException" namespace="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="farmaclick2010001Service">
+
+      <wsdl:port binding="impl:Farmaclick2010001FCKEstrattoContoSoapBinding" name="Farmaclick2010001FCKEstrattoConto">
+
+         <wsdlsoap:address location="http://farmaclick.infarma.it/Farmaclick2010001FCKEstrattoConto"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
